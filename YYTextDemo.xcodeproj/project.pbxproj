@@ -142,7 +142,7 @@
 				TargetAttributes = {
 					5E95E74A1EAFB386002678D0 = {
 						CreatedOnToolsVersion = 8.3;
-						DevelopmentTeam = QLHJC6W3WE;
+						DevelopmentTeam = 7J42285BL9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -355,10 +355,10 @@
 			baseConfigurationReference = 03C8BB2D6BD3F11A8C282E81 /* Pods-YYTextDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QLHJC6W3WE;
+				DEVELOPMENT_TEAM = 7J42285BL9;
 				INFOPLIST_FILE = YYTextDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gmail.pgwizardlv.YYTextDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = lv.YYTextDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -368,10 +368,10 @@
 			baseConfigurationReference = B049403409055E98E54C58FA /* Pods-YYTextDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = QLHJC6W3WE;
+				DEVELOPMENT_TEAM = 7J42285BL9;
 				INFOPLIST_FILE = YYTextDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gmail.pgwizardlv.YYTextDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = lv.YYTextDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

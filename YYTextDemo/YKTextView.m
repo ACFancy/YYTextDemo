@@ -11,29 +11,36 @@
 @implementation YKTextView
 
 
+
 - (void)drawRect:(CGRect)rect {
-    NSArray *lines = self.textLayout.lines;
-    NSLog(@"%zd", lines.count);
     // Drawing code
-    CGFloat fontSize = self.attributedText.yy_font.pointSize+self.attributedText.yy_headIndent + self.attributedText.yy_tailIndent;
-    CGFloat lineSpace = self.attributedText.yy_lineSpacing;
-    CGFloat margin = fontSize + lineSpace;
-    CGFloat startX = rect.size.width - 0.5*lineSpace;
-    NSInteger numOfColums = floor((rect.size.width - lineSpace)/margin);
+    self.contentOffset = (CGPoint){self.contentSize.width- self.frame.size.width};
+    NSArray<YYTextLine *> *lines = self.textLayout.lines;
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:rect];
     [[UIColor whiteColor] setFill];
     [path fill];
-    for (int i = 0; i < numOfColums+2; i+=1) {
+     CGFloat lineSpace = self.attributedText.yy_lineSpacing;
+    CGFloat startX = rect.size.width ;//- 0.5*lineSpace;
+    CGFloat margin = 0;
+    CGFloat maxHeight = -MAXFLOAT;
+    for (int i = 0; i < lines.count+1; i+=1) {
+        
         @autoreleasepool {
             path = [UIBezierPath bezierPath];
-            [path moveToPoint:(CGPoint){startX-i*margin, 0}];
-            [path addLineToPoint:(CGPoint){startX-i*margin, rect.size.height}];
+            [path moveToPoint:(CGPoint){startX, 0}];
+            [path addLineToPoint:(CGPoint){startX, rect.size.height-self.contentInset.top-self.contentInset.bottom-lineSpace}];
+            CGFloat dashPattern[] = {8, 4.0f};
+            [path setLineDash:dashPattern count:2 phase:4];
             [path setLineWidth:0.5];
-            [[UIColor redColor] setStroke];
+            [[UIColor darkGrayColor] setStroke];
             [path stroke];
+            if (i < lines.count) {
+                maxHeight = MAX(maxHeight, lines[i].height);
+                margin = lineSpace + lines[i].width;
+                startX -= margin;
+            }
         }
     }
-    
 }
 
 @end
