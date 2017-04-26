@@ -9,6 +9,31 @@
 #import "ViewController.h"
 #import "YKTextView.h"
 
+/*
+ https://github.com/ibireme/YYText/issues/595
+ 复现：YYTextEditExample 纵向排版下，清空文字, 再中英文混合输入，文字会消失。
+ 
+ 问题分析及解决建议：
+ 
+ 问题：iOS 10 中，某些字体在某些字号，例如：Zapfino 13 号、Times New Roman 20 号，的纵向布局下，文字会消失；AvenirNext-Regular 字体在清空文字后，仅输入英文时正常，输入中文时文字消失等。
+ 
+ 分析：iOS 10 中，某些字体在某些字号下， CTFrameSetter 使用了略大于 cgpath 的 constrainSize 计算，因此纵向布局下， baseline.origin.x 会比预想的略微向右偏移。YYTextLayout 中纵向文字的 line 是从右往左绘制，计算 line 的 frame 中，有这么一段代码：
+ 
+ ...
+ if (constraintSizeIsExtended) {
+ if (isVerticalForm) {
+ if (rect.origin.x + rect.size.width >
+ constraintRectBeforeExtended.origin.x +
+ constraintRectBeforeExtended.size.width) break;
+ }
+ ...
+ 此时，行的 rect.origin.x + rect.size.width 是略大于 constraintRectBeforeExtended.origin.x + constraintRectBeforeExtended.size.width 的。因此会直接跳过行的计算，导致 textBoundingRect等一系列的错误。
+ 
+ 修改： 谨慎的将 if (rect.origin.x + rect.size.width > constraintRectBeforeExtended.origin.x +
+ constraintRectBeforeExtended.size.width) 修改为 if (!CGRectIntersectsRect(rect,constraintRectBeforeExtended)) 。
+ 
+ */
+
 @interface ViewController ()
 
 @end
